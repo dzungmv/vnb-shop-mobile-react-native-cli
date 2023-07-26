@@ -61,15 +61,28 @@ export type OrderType = {
 };
 
 type MainStackParamsList = {
-  Home: undefined;
+  Home: {
+    type: string;
+  };
   Search: undefined;
   Cart: undefined;
   Products: {
-    screen: string;
-    params: {
-      data: ProductType;
-    };
+    type?: string | undefined;
   };
   Orders: undefined;
+  OrderDetail: {
+    data: OrderType;
+  };
   Profile: undefined;
+  ProductDetail: {
+    data: ProductType;
+  };
+  Checkout: {
+    cart: CartType[];
+    total: number;
+  };
+};
+
+export type KeyObj = {
+  [key: string]: string;
 };

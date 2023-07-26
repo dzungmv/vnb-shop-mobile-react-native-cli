@@ -7,7 +7,7 @@
 
 import React from 'react';
 
-import NavigationManager from './components/stacks';
+import NavigationManager from './components/navigation';
 import {Provider} from 'react-redux';
 import {store} from './redux/store';
 

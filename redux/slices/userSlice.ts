@@ -6,6 +6,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState: {
     user: {} as UserTypes,
+    cart: [],
   },
   reducers: {
     setUser: (state, action) => {
@@ -14,9 +15,9 @@ const userSlice = createSlice({
     setVerified: (state, action) => {
       state.user.user.verified = action.payload;
     },
-    // setCart: (state, action) => {
-    //     state.cart = action.payload
-    // },
+    setCart: (state, action) => {
+      state.cart = action.payload;
+    },
     // removeCart: (state) => {
     //     state.cart = [] as CartType[]
     // },
@@ -27,5 +28,5 @@ const userSlice = createSlice({
   },
 });
 
-export const {setUser, setVerified, logout} = userSlice.actions;
+export const {setUser, setVerified, setCart, logout} = userSlice.actions;
 export default userSlice.reducer;

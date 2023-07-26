@@ -20,7 +20,10 @@ import useDebounce from '../../components/hooks/useDebounce';
 import {MainStackParamsList, ProductType} from '../../type';
 import SearchSkeleton from './search-loading';
 
-type SearchNavigationProps = NavigationProp<MainStackParamsList>;
+type SearchNavigationProps = NavigationProp<
+  MainStackParamsList,
+  'ProductDetail'
+>;
 interface Props {
   navigation: SearchNavigationProps;
 }
@@ -31,6 +34,8 @@ export default function Search({navigation}: Props) {
   const [searchResult, setSearchResult] = React.useState<ProductType[] | null>(
     null,
   );
+
+  const searchRef = React.useRef<TextInput | null>(null);
 
   const searchDeb = useDebounce(searchValue, 800);
 
@@ -58,17 +63,23 @@ export default function Search({navigation}: Props) {
       setSearchResult([]);
     }
   }, [searchValue]);
+
+  React.useEffect(() => {
+    searchRef.current && searchRef.current?.focus();
+  }, []);
   return (
     <SafeAreaView className="flex-1 bg-white">
       <ScrollView>
         <View className="mt-2 px-5">
           <View className="flex-row gap-1 items-center">
             <TouchableOpacity onPress={() => navigation.goBack()}>
-              <AntdIcon name="left" size={20} color="black" />
+              <AntdIcon name="left" color="black" />
             </TouchableOpacity>
             <TextInput
+              ref={searchRef}
               value={searchValue}
               maxLength={35}
+              autoCapitalize="none"
               placeholder="Search for product"
               className="p-3 bg-slate-100 flex-1 rounded-full"
               onChangeText={text => setSearchValue(text)}
@@ -92,12 +103,7 @@ export default function Search({navigation}: Props) {
                   key={item?._id}
                   className="flex-row items-center px-1 py-2 mb-1"
                   onPress={() =>
-                    navigation.navigate('Products', {
-                      screen: 'ProductDetails',
-                      params: {
-                        data: item,
-                      },
-                    })
+                    navigation.navigate('ProductDetail', {data: item})
                   }>
                   <View className="flex-row items-center">
                     <Image
@@ -120,7 +126,7 @@ export default function Search({navigation}: Props) {
           </View>
         ) : (
           <>
-            {searchValue &&
+            {searchDeb &&
             !searchPending &&
             searchResult &&
             searchResult.length === 0 ? (

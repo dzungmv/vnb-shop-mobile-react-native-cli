@@ -1,6 +1,5 @@
 /* eslint-disable react/no-unstable-nested-components */
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createStackNavigator} from '@react-navigation/stack';
 import * as React from 'react';
 import Cart from '../../screens/cart';
 import Home from '../../screens/home';
@@ -10,27 +9,17 @@ import Profile from '../../screens/profile';
 import FontAwesomeIcon from '../common/icons/fontawesome-icon';
 import IonIcon from '../common/icons/ion-icon';
 import MaterialIcon from '../common/icons/material-icon';
-import Search from '../../screens/search';
 
 const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
 
-const SearchNavigation = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="HomeSC" component={Home} />
-      <Stack.Screen
-        options={{
-          headerShown: false,
-        }}
-        name="Search"
-        component={Search}
-      />
-    </Stack.Navigator>
-  );
+const ProductsWrapper: React.FC<{navigation: any; route: any}> = ({
+  navigation,
+  route,
+}) => {
+  return <Products navigation={navigation} route={route} />;
 };
 
-export default function MainStack() {
+export default function TabNavigation() {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -49,7 +38,7 @@ export default function MainStack() {
             ),
         }}
         name="Home"
-        component={SearchNavigation}
+        component={Home}
       />
 
       <Tab.Screen
@@ -70,6 +59,18 @@ export default function MainStack() {
         options={{
           headerShown: false,
           tabBarIcon: ({focused}) =>
+            // <View
+            //   style={{
+            //     width: 100,
+            //     height: 100,
+            //     backgroundColor: 'black',
+            //     display: 'flex',
+            //     justifyContent: 'center',
+            //     alignItems: 'center',
+            //     borderRadius: 9999,
+            //   }}>
+            //   {}
+            // </View>
             focused ? (
               <IonIcon name="rocket-sharp" color={'#FF2461'} />
             ) : (
@@ -77,7 +78,7 @@ export default function MainStack() {
             ),
         }}
         name="Products"
-        component={Products}
+        component={ProductsWrapper}
       />
 
       <Tab.Screen
