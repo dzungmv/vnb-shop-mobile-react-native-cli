@@ -27,6 +27,7 @@ export function Polulate({setPending}: Props) {
     const sale = price * 0.1;
     return price - sale;
   };
+
   React.useEffect(() => {
     (async () => {
       setPending(true);
@@ -38,13 +39,11 @@ export function Polulate({setPending}: Props) {
     })();
   }, [setPending]);
 
-  console.log('check data', data);
-
   return (
     <>
       <View className="px-4 my-5">
         <View className="flex-row items-center justify-between">
-          <Text className="text-base font-medium">Populate</Text>
+          <Text className="text-lg font-medium">Populate</Text>
           <TouchableOpacity
             onPress={() => navigation.navigate('Products', {type: ''})}>
             <View className="flex-row items-center">

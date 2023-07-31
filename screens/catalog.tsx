@@ -19,7 +19,7 @@ export function Catalog() {
   return (
     <View className="px-4 my-5">
       <View className="flex-row items-center justify-between">
-        <Text className="text-base font-medium">Categories</Text>
+        <Text className="text-lg font-medium">Categories</Text>
         <TouchableOpacity
           onPress={() => navigation.navigate('Products', {type: ''})}>
           <View className="flex-row items-center">
@@ -38,7 +38,7 @@ export function Catalog() {
         {catalogs.map((catalog: CatalogCmpProps) => {
           return (
             <TouchableOpacity
-              className="rounded-[10px] mr-2"
+              className="rounded-[10px] mr-1"
               key={catalog.id}
               onPress={() =>
                 navigation.navigate('Products', {
